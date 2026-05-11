@@ -1,0 +1,224 @@
+Final Architecture: (4 steps)
+
+1.	MySQL Servers
+     ↓
+2.	mysqld_exporter (9104 : Collects metrics from your MySQL database)
+     ↓
+3.	Prometheus (9090 : Scrapes and stores the metrics from the Exporter)
+     ↓
+4.	Grafana (3000 : Visualizes the data stored in Prometheus)
+
+===============(Client Server)==========Server01:192.168.241.99 & 192.168.241.31-(MySQL server)=====================================
+
+Step 1: Install and Configure MySQL Exporter (On your MySQL server)
+This agent runs on the same machine as your MySQL database to expose metrics
+
+1.1 Download and Install:
+cd /opt
+wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.15.1/mysqld_exporter-0.15.1.linux-amd64.tar.gz
+tar -xvf mysqld_exporter-0.15.1.linux-amd64.tar.gz
+mv mysqld_exporter-0.15.1.linux-amd64 mysqld_exporter
+useradd --no-create-home --shell /bin/false mysqld_exporter
+
+1.2 Configure MySQL Database User
+Log into your MySQL server and create a dedicated user for monitoring:
+<sql> CREATE USER 'mysqld_exporter'@'localhost' IDENTIFIED BY 'Support@4431';
+<sql> GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'mysqld_exporter'@'localhost';
+<sql> FLUSH PRIVILEGES;
+
+1.3 Configure MySQL Exporter
+mkdir -p /etc/mysqld_exporter
+cat > /opt/mysqld_exporter/.my.cnf << EOF
+[client]
+user=mysqld_exporter
+password=Support@4431
+EOF
+
+sudo chown -R mysqld_exporter:mysqld_exporter /opt/mysqld_exporter
+sudo chmod 600 /opt/mysqld_exporter/.my.cnf
+
+1.4 Create a Service File and Start Exporter
+sudo cat > /etc/systemd/system/mysqld_exporter.service << EOF
+[Unit]
+Description=MySQL Exporter
+After=network.target
+
+[Service]
+User=mysqld_exporter
+Group=mysqld_exporter
+Type=simple
+Restart=always
+ExecStart=/opt/mysqld_exporter/mysqld_exporter --config.my-cnf=/opt/mysqld_exporter/.my.cnf --web.listen-address=:9104
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl start mysqld_exporter
+sudo systemctl enable mysqld_exporter
+sudo systemctl status mysqld_exporter
+
+curl http://localhost:9104/metrics
+
+From Browser: http://192.168.241.99:9104/metrics
+
+>>>>>>>>>>>>>>>>>>>
+On each MySQL server (241.99 and 241.31)
+Check if slow query log is already enabled:
+
+sql
+SHOW VARIABLES LIKE 'slow_query_log%';
+SHOW VARIABLES LIKE 'long_query_time';
+2.2 Enable slow query log (if not already enabled):
+
+Edit MySQL configuration file (typically /etc/my.cnf or /etc/mysql/my.cnf):
+
+ini
+[mysqld]
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow-query.log
+long_query_time = 1
+log_queries_not_using_indexes = 1
+
+systemctl restart mysqld
+<<<<<<<<<<<<<<<<<<<<<<<<<
+
+========(Monitoring Server)=======Server-02:192.168.241.38 (Prometheus&Grafana)====================================
+
+Step 2: Install and Configure Prometheus (The Data Source)
+Grafana needs a data source to read metrics from. Prometheus is the standard choice.
+
+2.1 Download and Install Prometheus
+cd /opt
+sudo wget https://github.com/prometheus/prometheus/releases/download/v2.53.0/prometheus-2.53.0.linux-amd64.tar.gz
+sudo tar -xvf prometheus-2.53.0.linux-amd64.tar.gz
+sudo mv prometheus-2.53.0.linux-amd64 prometheus
+
+2.2 Configure Prometheus to Monitor MySQL
+Create a system user for Prometheus and configure it to scrape the MySQL Exporter (which we will install later on the database server).
+sudo useradd --no-create-home --shell /bin/false prometheus
+sudo mkdir /etc/prometheus
+sudo mv /opt/prometheus/prometheus.yml /etc/prometheus/
+
+cp /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml.bak
+Edit the configuration file sudo vi /etc/prometheus/prometheus.yml. Under scrape_configs, add a job for your MySQL server:
+Replace the entire file with this corrected version:
+
+[root@Cashriar-DB-Staging ~]# vi /etc/prometheus/prometheus.yml
+
+# my global config
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape
+scrape_configs:
+  # MySQL job
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['192.168.241.99:9104']
+        labels:
+          instance: 'mysql-RnD_241.99'
+      - targets: ['192.168.241.31:9104']
+        labels:
+          instance: 'mysql-DB-reporting_241.31'
+
+
+
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+
+systemctl restart prometheus
+
+
+2.3 Create a Service File and Start Prometheus
+sudo cat > /etc/systemd/system/prometheus.service << EOF
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path=/var/lib/prometheus/ \
+  --web.console.templates=/etc/prometheus/consoles \
+  --web.console.libraries=/etc/prometheus/console_libraries
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mkdir -p /etc/prometheus /var/lib/prometheus
+sudo chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
+sudo chmod 755 /etc/prometheus /var/lib/prometheus -R
+
+2.4 Verify and restart:
+Test manually first:
+sudo -u prometheus /usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/var/lib/prometheus/ --web.listen-address=:9090
+
+sudo systemctl daemon-reload
+sudo systemctl restart prometheus
+sudo systemctl enable prometheus
+sudo systemctl status prometheus
+
+http://192.168.241.38:9090/
+
+
+STEP 3 — Install Grafana on CentOS 7
+
+# Create the Grafana repository file
+sudo cat > /etc/yum.repos.d/grafana.repo << EOF
+[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/oss/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+EOF
+
+yum makecache
+yum install -y grafana
+
+systemctl daemon-reload
+systemctl start grafana-server
+systemctl enable grafana-server
+
+3.2 Configure Firewall (If enabled)
+firewall-cmd --zone=public --add-port=3000/tcp --permanent
+firewall-cmd --reload
+
+http://192.168.241.38:3000/login
+
+Login: admin
+pass: Support@4431
+
+Dashboard ID`s
+a. 7362 	> Mysql Overview
+b. 14057 	> mysql Performance Metrics
+===========================================================================

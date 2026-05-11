@@ -1,0 +1,120 @@
+
+Q. 
+
+
+
+#Core systems, tools, and services: 
+1. GitHub Action, Jenkins
+2. Mail Server 
+3. Kubernetes (EKS, GKE, AKS)
+> Google cloud platform
+> Amazon Web Services 
+
+> PostgreSQL, MongoDB
+> AxonIQ, Kafka, RabbitMQ, Redis
+> ArgoCD
+
+> Git, BitBucket
+> ELK Stack
+> Terraform, Ansible, Shell Scripting
+> Prometheus, Grafana
+> PBX Systems (Asterisk, Kamailio)
+
+Requirements:
+2+ years of experience as a DevOps Engineer or similar role.
+Strong Linux/Unix systems administration skills.
+Proficiency in Python and Bash scripting.
+Hands-on experience with Docker & Kubernetes.
+Experience with infrastructure as code (Terraform, Ansible, or similar).
+Familiarity with CI/CD tools (Jenkins, GitLab CI, GitHub Actions, etc.).
+Experience with monitoring & logging tools (Grafana, Prometheus, ELK, Datadog).
+Solid understanding of networking, security, and cloud best practices.
+
+What is Deploy and manage Livbirt, KVM, OpenStack, VMware, or containerized environments (Docker, Kubernetes)
+
+Design, build, and maintain CI/CD pipelines using GitHub Actions, GitLab CI, or Jenkins.
+Automate deployment, configuration, and scaling using Infrastructure as Code (IaC) tools such as Terraform, Ansible, or CloudFormation.
+Manage and optimize cloud infrastructure across AWS, Azure, GCP, or Odoo.sh for high availability, scalability, and cost-efficiency.
+Develop, maintain, and optimize containerized environments using Docker and Kubernetes.
+
+https://chatgpt.com/c/692e87b2-4cec-8323-928d-7421b0d0d8c7
+
+bhai, Contact Center master–slave replication has become disconnected due to significant row mismatches caused by missing data on the slave server. Examples of the discrepancies are as follows:
+vicidial_closer_log
+Master: 3,218,320 rows
+Slave: 823,540 rows
+→ Slave is missing ~2.39 million rows
+
+vicidial_log_extended
+Master: 5,261,775 rows
+Slave: 1,856,597 rows
+→ Slave is missing ~3.4 million rows
+
+vicidial_agent_log
+Master: 4,908,471 rows
+Slave: 747,536 rows
+→ Slave is missing ~4.16 million rows
+Root Cause Analysis
+* The replication failure and data mismatch occurred due to the following reasons:
+* Slave tables crashed during high disk I/O operations.
+* Replication SQL thread stopped, causing events to remain unapplied.
+* Transactions were lost during the crash period.
+* Several updates were skipped when replication attempted to continue after errors.
+* MyISAM storage engine lacks transactional consistency, making it vulnerable under heavy workload.
+* Slave server hardware is insufficient (2 CPU cores), leading to high I/O wait and replication instability.
+
+----------------------------------------------------------------------------------
+Database Administrator
+Qvantel · Dhaka, Bangladesh (Hybrid)
+
+Key Responsibilities
+
+Database Administration
+
+Install, configure, upgrade, and maintain MariaDB, PostgreSQL, and Apache Cassandra databases
+Perform database capacity planning, performance tuning, and optimization
+Monitor database health, replication, clustering, and availability
+Backup, Recovery & High Availability
+
+Design and manage backup and recovery strategies (logical & physical backups)
+Implement and manage replication, clustering, and failover solutions
+Perform disaster recovery planning and regular DR drills
+Security & Compliance
+
+Manage database security: users, roles, privileges, encryption, and auditing
+Apply security patches and upgrades in compliance with company policies
+Ensure compliance with data protection and regulatory standards
+Performance & Troubleshooting
+
+Diagnose and resolve database performance issues and outages
+Analyze slow queries, locks, and resource bottlenecks
+Provide root cause analysis (RCA) for incidents
+
+Automation
+
+Automate routine DBA tasks using scripts (Shell, Python, etc.)
+Support containerized and cloud-based database deployments (if applicable)
+Documentation & Support
+
+Maintain database documentation, SOPs, and operational runbooks
+Provide on-call support for production database environments
+Assist developers with schema design, indexing, and query optimization
+
+Required Skills & Qualifications
+
+Technical Skills
+
+Strong hands-on experience with MariaDB / MySQL, PostgreSQL, and Apache Cassandra
+Expertise in:
+Replication & clustering (Galera, PostgreSQL streaming replication, Cassandra clusters)
+Backup & recovery tools (mysqldump, pg_dump, pg_basebackup, nodetool, etc.)
+Performance tuning and query optimization
+Experience with Linux systems and shell scripting
+Knowledge of monitoring tools (Prometheus, Grafana, Zabbix, Nagios, etc.)
+Database Concepts
+
+ACID vs BASE principles
+OLTP and distributed database architectures
+Data modeling for relational and NoSQL databases
+
+---------------------------------------------------------------------------------------

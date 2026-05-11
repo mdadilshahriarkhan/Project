@@ -1,0 +1,193 @@
+Common Git Commands
+
+What is Git:
+Git is a Open-souece and free "Version Control System" too that helps to track changes in code.
+
+What is GitHub:
+GitHub is a Website (Cloud-based platfrom) that allows developers to store and manage their code using Git 
+
+Connect git to GitHub
+# git config --global --list       									// to check connection 
+# git config --global user.name adihahriarkhan
+# git config --global user.email adil.shahriar.ssdtech@gmail.com
+
+Configuring user information, initializing and cloning repositories
+# git init
+
+"Status" Check
+# git status
+
+"add" command (Adding files to staging area)
+# git add [filename]
+# git add *
+# git add . 			
+
+"commit" (It is used to save the changes from the staging area to Git Repository)
+Each commit has a Unique Identifier (SHA-1 hash).
+# git commit -m "[message]"	
+
+"log" command (Viewing commit History)
+# git log
+# git log --oneline 
+
+"diff" differences between the last 2 commits in Git. Its usefull for Code reviews and Debugging.
+It show the differences between the Working directory and the Staging Area.
+# git diff
+# git diff <commit1> <commit2> <commit3>
+
+"clone" (Create a copy of an existing Git Repository from remote server like: Github, GitLab to our local machine)
+# git clone [Repository-url]
+
+"fetch" (Retrieve the latest updates from a remote repository without Merging them into our local branch)
+# git fetch <remote-repositoriy-name/url>
+
+"Merge" (Merge the changes between different local repositories or branches)
+# git merge FETCH_HEAD
+
+"pull" (git pull = git fetch + git merge)
+# git pull <repositories-url> <branch>
+# git pull <remote> <branch>
+# git pull 
+
+"push" (updates local commits to a remote repository)
+# git push <repositories-url> <branch>
+
+WORKFLOW: 
+GitHub repo > Clone > changes > Add > commit > push 
+
+Go to your project folder
+# cd your-project-folder
+Step-1: git init
+Step-2: git add . / git add [filename]
+step-3: git commit -m "first commit"
+step-4: open GitHub panel and create a Repository (Repository name : Database)
+step-5: git remote add origin https://github.com/your-username/your-repo.git
+		git remote add origin https://github.com/mdadihahriarkhan/Database.git
+Step-6: git branch -M main 			// Set branch name
+Step-7: git push -u origin main		// Push to GitHub
+
+
+A typical Git workflow involves several core commands: 
+# git init								: Initializes a new Git repository in a local directory.
+## git clone [Repository-url]			: Creates a local copy of a remote repository
+# git add [file]						: Stages changes for the next commit.
+# git commit -m "message"				: Records the staged changes as a snapshot in the project history with a descriptive message
+# git branch -M main					: change branch ("main" is Github default branch)
+# git remote -v							: Check remote connection
+
+# Open "GitHub" > create a repository name: localproject > and connect with remote using below link 
+# git remote add origin https://github.com/mdadihahriarkhan/localproject.git 
+
+# git push -u origin main				: Uploads local commits to a remote repository (e.g., on GitHub).
+# git pull								: Updates the local repository with the latest changes from the remote counterpart. 
+
+Practice Website Link : https://learngitbranching.js.org/
+
+Adil Shahriar@AdihahriarE14 MINGW64 /d/Study/Git/GitPractice/my-website (main)
+$ history
+    1  
+    2  git --version
+    3  
+    4  cd /
+    5  
+    6  
+    7  git config --global iser.name "mdadihahriarkhan"
+    8  git config --global user.name "mdadihahriarkhan"
+    9  git config --global user.email "adil.shahriar.ssdtech@gmail.com"
+   10  gin config --list
+   11  git config --list
+   12  git config --global --unset iser.name
+   13  git config --list
+   14  
+   15  
+   16  cd GitDemo
+   17  
+   18  git status
+   19  git init
+   20  git status
+   21  git remote -v
+   22  branch -M Database
+   23  branch -M main
+   24  git branch -M Database
+   25  git branch -M main
+   26  git remote add origin https://github.com/mdadihahriarkhan/Database.git
+   27  git push -u origin main
+   28  git remote -v
+   29  
+   30  git push -u origin main
+   31  git remote add origin https://github.com/mdadihahriarkhan/Database.git
+   32  git branch -M main
+   33  git push -u origin main
+   34  git status
+   35  git add .
+   36  git add . -- ':!Replication/Bkash_boomcast_replication-25feb25.txt'
+   37  git add . -- ':!Replication/'
+   38  git status
+   39  git commit -m "database-action-1"
+   40  git commit -m "database-action-1"
+   41  
+   42  git --versin
+   43  git --version
+   44  git config --globel --list
+   45  git config --global --list
+   46  git init
+   47  git status
+   48  git add *
+   49  git status
+   50  git status
+   51  git branch
+   52  git switch login
+   53  git branch
+   54  git status
+   55  git add .
+   56  git commit -m "login : added login and register page"
+   57  git status
+   58  git switch main
+   59  git merge login
+   60  git push -u origin main
+   61  git status
+   62  git branch payment
+   63  git switch payment
+   64  git branch
+   65  git switch main
+   66  git status
+   67  git switch payment
+   68  
+   69  git status
+   70  git switch mail
+   71  git add .
+   72  git commit -m "payment : added paymentgetway page"
+   73  git switch main
+   74  git switch payment
+   75  git push -u origin payment
+   76  git switch login
+   77  git status
+   78  git push -u origin login
+   79  git branch
+   80  
+   81  git remote -v
+   82  git init
+   83  git branch payment
+   84  git branch main
+   85  git status
+   86  git add .
+   87  git commit -m "pull request check"
+   88  git branch main
+   89  git switch payment
+   90  git switch main
+   91  git switch login
+   92  git branch -M main
+   93  git switch payment
+   94  git branch
+   95  git status
+   96  git init
+   97  git add .
+   98  git commit -m "version 1.1"
+   99  git remote -v
+  100  git branch -M main
+  101  git remote add origin https://github.com/mdadihahriarkhan/my-website.git
+  102  git push -u origin main
+  103  git remote -v
+  104  history
+
+

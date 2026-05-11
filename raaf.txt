@@ -1,0 +1,625 @@
+PURGE BINARY LOGS BEFORE '2024-11-16 23:59:59’;
+crontab -l
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+
+Minute	hour	date	month	day of week
+
+#log-bin = /var/lib/mysql/mysql-bin.log
+Ad!l!3@4 
+Ad!l!3@4
+
+mysql> SHOW MASTER STATUS;
++------------------+----------+-----------------------------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB                      | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+-----------------------------------+------------------+-------------------+
+| mysql-bin.000001 |   214126 | pulse_admin_v2,pulse_admin_v2_rnd |                  |                   |
++------------------+----------+-----------------------------------+------------------+-------------------+
+1 row in set (0.02 sec)
+
+
+innodb_buffer_pool_size = 6G
+innodb_flush_method = O_DIRECT
+innodb_flush_log_at_trx_commit = 2
+innodb_buffer_pool_instances = 6
+
+innodb_thread_concurrency=8
+innodb_io_capacity=3000
+innodb_io_capacity_max=6000
+innodb_write_io_threads=16
+innodb_read_io_threads=16
+innodb_autoinc_lock_mode=2
+
+
+mysql> create user 'repl'@'192.168.242.157' IDENTIFIED by 'J8^gY3$!)^#9Kp';
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.168.242.157';
+mysql> flush privileges;
+
+
+******************
+1. hadayat bhai , cacti report database backup and restore hoye gese . 
+2. kon table theke data ashe ,
+
+
+3. job create kore task add korte hobe SQL management stdio
+
+4. boom cast er jakori space khali korar jonno sob automated korte hobe 
+
+5.Boom cast e sob survice and operatioin and log data 
+6. operation teams e kaj automated korte hobe boom cast er jonno 
+............................................. 
+ 
+/NAS/Mybackup/bl_21
+
+
+
+/home/nas_db_bk/  
+
+200
+CREATE USER 'nabi'@'%' IDENTIFIED BY 'Str0ngP@$$123';
+
+GRANT SELECT, UPDATE, INSERT ON vsdp_2_0_test.* TO 'nabi'@'%';
+
+FLUSH PRIVILEGES;
+
+202
+CREATE USER 'nabi'@'%' IDENTIFIED BY 'Str0ngP@$$123';
+
+GRANT SELECT, UPDATE, INSERT ON vsdp_2_1_1.* TO 'nabi'@'%';
+
+FLUSH PRIVILEGES;
+
+------------------------
+200
+CREATE USER 'nahar'@'%' IDENTIFIED BY 'Str0ngP@$$123';
+
+GRANT SELECT, UPDATE, INSERT ON vsdp_2_0_test.* TO 'nahar'@'%';
+
+FLUSH PRIVILEGES;
+
+202
+CREATE USER 'nahar'@'%' IDENTIFIED BY 'Str0ngP@$$123';
+
+GRANT SELECT, UPDATE, INSERT ON vsdp_2_1_1.* TO 'nahar'@'%';
+
+FLUSH PRIVILEGES;
+
+
+adil.shahriar.ssdtech@gmail.com
+
+scp -r -P 24522 esxi-104-equnix.ssd-tech/ APIG/ audra/ Audra-AndroidApp/ Audra_Manage/ audramail/ backoffice-ghoori/ clorox_referral_prod/ DB-codero/ dotlines-appointment/ Dotquiz_production_web/ esxi-102-equnix.ssd-tech/ ESXI-102-iosclient-141/ esxi-103-equnix.ssd-tech/ ESXI-103_Axiata_216/ esxi-105-equinx.ssd-tech/ blackseedonline/ Boomtalk/ centos-c-8-16gib-sgp1-01/ Central-twocups-apigw-prod/ Backup-Rutiruji-178/ esxi-106-equinx.ssd-tech/ esxi-107-equnix.ssd-tech/ esxi-115.ssd-tech/ esxi-116.ssd-tech/ esxi-136.ssd-tech/ esxi-176.ssd-tech/ esxi-186.ssd-tech/ esxi-196.ssd-tech/ esxi-206.ssd-tech/ esxi-216.ssd-tech/ esxi-226.ssd-tech/ Esxi-236.ssd-tech/ esxi-237/ esxi-246-156.ssd-tech/ esxi-26.ssd-tech/ esxi-36.ssd-tech/ esxi-46.ssd-tech/ esxi-56.ssd-tech/ esxi-66.ssd-tech/ esxi-76.ssd-tech/ esxi-96.ssd-tech/ Foster_WEB/ game-on-Prod/ gameon-ojopay/ gameon-prod-DB/ GET/ git/ Global-IM-100-213/ GopShop-App/ home-easypayway-com/ home-easypayway-Replica/ i-learning/ internettl.org/ jenkins/ li2038-209.members.linode.com/ live-ghoorilearning/ mindcurrent_docker/ my-aa-sc-server/ NoneZ/ ns1/ ns2/ 45-249-100-219/ referral_web/ RutiRuji-DB-Backup/ slave/ sohoj/ tdemo/ testmaster/ Towcups_Bolivia/ VM-ESXI-6/ web-carnivalassure/ testsmbplus/ root@192.168.245.5:/backup/syslog_backup_241.133 scp -r -P 24522 localhost/ root@192.168.245.5:/backup/syslog_backup_241.133
+
+scp -r -P 24522 esxi-104-equnix.ssd-tech/ APIG/ root@192.168.245.5:/backup/syslog_backup_241.133 scp -r -P 24522 localhost/ root@192.168.245.5:/backup/syslog_backup_241.133
+
+Zoom Accounts
+Zoom ID: zoom.admin@dotlines.com.bd
+Zoom Pass: Support@4431		Display Name:  Dotlines Admin
+
+New: gettech@dotlines.com.bd
+T)697443226681af
+e5Dha>6P5Q9zy
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'adil'@'127.0.0.1' WITH GRANT OPTION;
+
+ALTER USER 'sudipto'@'%' IDENTIFIED BY 'SeC163{R!Mct';
+
+ALTER USER 'adil'@'%' IDENTIFIED BY 'md@$K#182';
+UPDATE mysql.user SET Host='%' WHERE User='repl_check';
+
+
+GRANT ALL PRIVILEGES ON livedb.* TO 'adil'@'%' IDENTIFIED BY 'Support@4431';
+GRANT ALL PRIVILEGES ON *.* TO 'adil'@'%' IDENTIFIED BY 'md@$K#182';
+FLUSH PRIVILEGES;
+
+CREATE USER 'adil'@'%' IDENTIFIED BY 'md@$K#182';
+GRANT ALL PRIVILEGES ON *.* TO 'adil'@'%' WITH GRANT OPTION;
+CREATE USER 'adil'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'TE@m0ps7765';
+GRANT select ON *.* TO 'shampa'@'%' WITH GRANT OPTION;
+
+
+CREATE USER 'airticket_user_prod_new'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'N4W>u]SU/p6kR9(';
+GRANT ALL PRIVILEGES ON airticket_system_production.* TO 'airticket_user_prod_new'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>....
+server {
+    listen       80;
+    server_name  192.168.241.103;
+
+    root /var/www/html/test_rnd;
+    autoindex on;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # PHP processing
+    location ~ \.php$ {
+        include fastcgi_params;
+        #fastcgi_pass unix:/run/php-fpm/www.sock;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    # Deny .htaccess (common security step)
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+WEMISSYOUCHAT15				15%
+
+
+===============================================================================
+DELETE FROM admin_role_users WHERE user_id IN
+('1108967',
+'1107801',
+'1107955',
+'1109361',
+'1108686'); Qun62147
+
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_29Dec2024 | gzip > /home/nas_db_bk/ssmsncjdnckdcn/pulse_admin_v2-smsoutbox_back_29Dec2024-04sep25.sql.gz
+
+TRUNCATE TABLE foreign_travel_plan_rate_charts;
+
+CREATE TABLE foreign_travel_plan_rate_charts_bck AS SELECT * FROM foreign_travel_plan_rate_charts;
+
+
+>>>>>>>>>>>>
+LaaS
+PaaS
+SaaS
+
+@dIl@8323
+root	F}Fq8Ug35E#8Lx	cahier DB / Foster_DB
+
+
+242.57 > after takeing full backup shutdown it   
+141.169 > live thakbe 
+242.171 > live thakbe 
+100.165 > i dont know 
+
+45.125.222.252	22	
+root	Support@4431	
+root	vicidialnow
+
+
+Subject: eCourier Server Replication Down – Request for Downtime to Reset Replication
+
+Dear Hannan Bhai,
+
+I hope you are doing well.
+
+This is to inform you that the replication between the master and slave servers for the eCourier system is currently down. Upon investigation, we have identified that the issue is related to corrupted relay logs on the slave server due to uday tower elecity power off issue .
+
+To resolve this and ensure data consistency, we will need a short downtime window to reconfigure the replication setup from master to slave.
+
+Please let us know a convenient time when we can proceed with this activity.
+
+mysql -u root -p bkashone < /home/adil/DbFor_Both_Bkash_and_International.sql
+gunzip < /home/adil/zthpgpajnh_1.sql.gz | mysql -u root -p zthpgpajnh.sql.gz
+
+
+CREATE USER 'szasddmpkw'@'100.64.21.150' IDENTIFIED BY 'm3)Dd#3XB!2&j>TP';
+GRANT ALL PRIVILEGES ON bkashone.* TO 'szasddmpkw'@'100.64.21.150' WITH GRANT OPTION;
+FLUSH PRIVILEGES
+
+CREATE USER 'hannan'@'%' IDENTIFIED BY 'jsjnsFGG^^757kkl';
+CREATE USER 'adil'@'%' IDENTIFIED WITH mysql_native_password BY 'A%d*!#L70061';
+GRANT ALL PRIVILEGES ON *.* TO 'adil'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+4706614431986998
+18274472101
+
+Outstanding 504055
+
+103.239.252.66
+103.239.252.206
+45.125.222.191 
+
+3306
+
+test.omega@2cshipping.com
+C&838860518783ux
+
+tng backup
+DELETE FROM http_logs WHERE DATE(created_at) < '2025-06-10'
+DELETE FROM sohoj_api_logs WHERE DATE(created_at) < '2025-06-10'
+DELETE FROM support_ticket_logs WHERE DATE(created_at) < '2025-06-10'
+DELETE FROM tng_payment_logs WHERE DATE(created_at) < '2025-06-10'
+DELETE FROM tng_user_info_logs WHERE DATE(created_at) < '2025-06-10'
+DELETE FROM tng_user_journeys WHERE DATE(created_at) < '2025-06-10'
+OPTIMIZE TABLE tng_user_journeys;
+
+
+CREATE USER 'shahriar'@'%' IDENTIFIED BY 'neuhTTe!ygAzXw2!3';
+GRANT SELECT, INSERT, UPDATE, DELETE, ALTER ON *.* TO 'shahriar'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES
+
+CREATE USER 'iffty'@'%' IDENTIFIED BY 'Team@ps@#5313!';
+GRANT SELECT ON *.* TO 'iffty'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+mysqldump --single-transaction --routines -h localhost -u root -p bsaler | gzip > /home/bsaler_11Nov25.sql.gz
+gunzip < /home/adil/bsaler_11Nov25.sql.gz | mysql -u root -p bsaler
+
+
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live smsoutbox_back | gzip > /home/boomcast_live-smsoutbox_back-20Aug25.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live accesslog | gzip > /home/boomcast_live-accesslog-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live account | gzip > /home/boomcast_live-account-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live job | gzip > /home/boomcast_live-job-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live masking | gzip > /home/boomcast_live-masking-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live smsoutbox_back | gzip > /home/boomcast_live-smsoutbox_back-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live smsoutbox_temp | gzip > /home/boomcast_live-smsoutbox_temp-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live users | gzip > /home/boomcast_live-users-20Aug25.sql.gz
+ 
+mysqldump --single-transaction --routines -h localhost -u root -p boomcast_live smsoutbox | gzip > /home/boomcast_live-smsoutbox-20Aug25.sql.gz
+
+ FTP server IP	: 159.223.58.218
+ FTP user		: 100078
+ FTP pass		: SmbN9J2Bvq2r
+ FTP Folder		: /100078
+ 
+ FTP server IP	: 159.223.58.218
+ FTP user		: 202413
+ FTP pass		: SmbXbzJAp378
+ FTP Folder		: /202413
+ 
+ FTP server IP	: 159.223.58.218
+ FTP user		: 255168
+ FTP pass		: Smbx6Ss3t7KY
+ FTP Folder		: /255168
+ 
+Query1
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+822263 row(s) affected
+
+Query2
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+657647 row(s) affected
+
+Query3
+1 queries executed, 0 success, 1 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+Error Code: 1086
+File '/var/lib/mysql-files/operation_report_010923-311023.csv' already exists
+
+Query4
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+674012 row(s) affected
+
+Query5
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+981848 row(s) affected
+
+Query6
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+711273 row(s) affected
+
+Query7
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+687411 row(s) affected
+
+Query8
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+582748 row(s) affected
+
+Query9
+1 queries executed, 1 success, 0 errors, 0 warnings
+
+Query: SELECT pr.ref_id AS Consignment,au.name AS Merchant, CASE WHEN pr.is_ipay='0' THEN "Regular Pay" WHEN pr.is_ipay='1' THEN "Insta...
+
+563183 row(s) affected
+
+
+mysqldump --single-transaction --routines -h localhost -u root -p bkash_referrer | gzip > /home/bkash_referrer-27aug25.sql.gz
+gunzip < bkash_referrer-27aug25 | mysql -u root -p bkash_referrer
+
+
+gunzip < touch_n_go_v2_backup-10july25.sql.gz | mysql -u root -p touch_n_go_v2_backup
+Support@4431
+
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_7542123 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_7542123-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_previous | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_previous-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_bk_main | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_bk_main-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_bk02012025 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_bk02012025-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_bk_05_12_2024 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_bk_05_12_2024-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_init | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_init-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_29Dec2024 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_29Dec2024-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_init_bk_20241030 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_init_bk_20241030-04sep25.sql.gz
+mysqldump --single-transaction --routines -h localhost -u root -p pulse_admin_v2 smsoutbox_back_init_BK_20241030 | gzip > /home/adil/pulse_admin_v2-smsoutbox_back_init_BK_20241030-04sep25.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p airticket_system_staging | gzip > /home/db_dump_30/airticket_system_staging-30nov2025.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p touch_n_go_v2_staging | gzip > /home/db_dump_30/touch_n_go_v2_staging-30nov2025.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p touch_n_go_v2_staging_bk | gzip > /home/db_dump_30/touch_n_go_v2_staging_bk-30nov2025.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p mysql | gzip > /home/db_dump_30/mysql-30nov2025.sql.gz
+
+
+gunzip < bkash_referrer-09sep25.sql.gz | mysql -u root -p demo_bkash_referrer
+
+
+mysqldump --single-transaction --routines --triggers --events -h localhost -u root -p --all-databases | gzip > /home/full_DB_dump_tng-staging-30nov25.sql.gz
+
+
+CREATE USER 'bkash_ref_tin_nid_app'@'localhost' IDENTIFIED BY 'Jb*A!M7^2gm7';
+
+Jb*A!M7^2gm7
+
+mysql> show grants for 'bkash_ref_tin_nid_app'@'localhost';
++--------------------------------------------------------------------------------------+
+| Grants for bkash_ref_tin_nid_app@localhost                                           |
++--------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'bkash_ref_tin_nid_app'@'localhost'                            |
+| GRANT ALL PRIVILEGES ON `bkash_ref_tin_nid`.* TO 'bkash_ref_tin_nid_app'@'localhost' |
++--------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+CREATE USER 'bkash_rererrer_app'@'localhost' IDENTIFIED BY 'Jb*A!M7^2gm7';
+
+Jb*A!M7^2gm7
+
+mysql> show grants for 'bkash_rererrer_app'@'localhost';
++--------------------------------------------------------------------------------+
+| Grants for bkash_rererrer_app@localhost                                        |
++--------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'bkash_rererrer_app'@'localhost'                         |
+| GRANT ALL PRIVILEGES ON `bkash_referrer`.* TO 'bkash_rererrer_app'@'localhost' |
++--------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> show grants for 'mysql.session'@'localhost';
++-----------------------------------------------------------------------+
+| Grants for mysql.session@localhost                                    |
++-----------------------------------------------------------------------+
+| GRANT SUPER ON *.* TO 'mysql.session'@'localhost'                     |
+| GRANT SELECT ON `performance_schema`.* TO 'mysql.session'@'localhost' |
+| GRANT SELECT ON `mysql`.`user` TO 'mysql.session'@'localhost'         |
++-----------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> show grants for 'mysql.sys'@'localhost';
++---------------------------------------------------------------+
+| Grants for mysql.sys@localhost                                |
++---------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'mysql.sys'@'localhost'                 |
+| GRANT TRIGGER ON `sys`.* TO 'mysql.sys'@'localhost'           |
+| GRANT SELECT ON `sys`.`sys_config` TO 'mysql.sys'@'localhost' |
++---------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+teamOps: 	team@ps@#5313!
+shahriar:   	neuhTTe!ygAzXw2!3
+
+
+CREATE USER 'teamOps'@'%’ IDENTIFIED WITH mysql_native_password BY 'NewStrongPass!';
+GRANT ALL PRIVILEGES ON yourdb.* TO 'app'@'%’;
+FLUSH PRIVILEGES;
+
+
+
+SELECT 
+        `date` AS `Date`, 
+        `total_visitor` AS `Total Visitor`,
+        `total_visitor_mtd` AS `Total Visitor MTD`, 
+        `total_search` AS `Total Search`, 
+        `total_search_mtd` AS `Total Search MTD`, 
+        `total_ticket_issue` AS `Total Ticket Issue`, 
+        `total_ticket_issue_mtd` AS `Total Ticket Issue MTD`, 
+        `total_passenger` AS `Total Passenger`, 
+        `total_passenger_mtd` AS `Total Passenger MTD`, 
+        `no_of_payment` AS `No of Payment`, 
+        `no_of_payment_mtd` AS `No of Payment MTD`, 
+        `revenue` AS `Revenue`, 
+        `revenue_mtd` AS `Revenue MTD` 
+FROM `airticket_system_production`.`ats_daily_reports` 
+WHERE `org_id` = '3' AND `date` = CURDATE() - INTERVAL 1 DAY 
+LIMIT 0, 1;
+
+\\100.64.21.160\mindinitiatives\Dotlines OPCO\1.  The Eastern Pickle Company Ltd\Challan\Challan Scan\2021-2022
+\\100.64.21.160\mindinitiatives\1.OPCO Accounts\1 Monthly Reporting\1 Assure\2023
+
+\\100.64.21.160\carnival_assure\Calling Database\Carnival Internet partner\Final Partner & Nominee info\ND
+\\100.64.21.160\carnival_assure\BAT DATA\1. Dhaka - All Good Data\Agrani Trading Corporation Limited, Dhaka\Moghbazar\FF NID Moghbazar
+
+Studay
+q. Selecting and deploying appropriate CI/CD tools and CI/CD pipelines that are optimized for GCP (Cloud Build, Cloud Deploy) 
+q. what is CI/CD tools 
+
+eCourier DB
+192.168.242.224	2202	
+adil	@dIl@8323	
+root	ZQH$84dk~9%g	3306	
+
+eCourier Replication
+192.168.242.171 	5912	
+root	Pa$sW$74&#	
+root	Jk&d1!U&k1(3	3306	
+
+Contact center carnival- Master
+45.125.222.252	22	
+root	Support@4431	
+root	vicidialnow	asterisk	
+
+Contact center carnival - Slave
+103.218.24.188	4810	
+root	Support@4431	
+root	Support@4431		
+
+
+CREATE USER 'azizul'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'Nopa$$@1234';
+GRANT ALL PRIVILEGES ON bsaler.* TO 'shariful'@'%' WITH GRANT OPTION;
+
+BL
+CREATE USER 'arefin'@'%' IDENTIFIED BY '@R#F!n&5%5';
+GRANT SELECT, INSERT, UPDATE, EXECUTE ON *.* TO 'arefin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+Rabi
+CREATE USER 'arefin'@'%' IDENTIFIED BY '@R#F!n&5%5';
+GRANT SELECT, INSERT, UPDATE ON *.* TO 'arefin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+mysql> GRANT ALL PRIVILEGES ON database.* TO 'adil'@'127.0.0.1';
+
+Staging
+CREATE USER 'rakib'@'%' IDENTIFIED BY 'neuhTTe!ygAzXw2!3';
+GRANT ALL PRIVILEGES ON *.* TO 'rakib'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES
+pa#keY9J!779*Q
+
+bsaler Production DB-
+user: sharif
+Pass: neuhTTe!ygAzXw2!3
+
+bsaler Staging DB-
+user: sharif
+Pass: neuhTTe!ygAzXw2!3
+
+CREATE USER 'topup_sftp_exporter'@'%' IDENTIFIED BY 'neuhTTe!ygAzXw2!3';
+GRANT SELECT, INSERT, DROP ON *.* TO 'topup_sftp_exporter'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES
+
+SELECT * 
+FROM subscriberinfos 
+WHERE account_status != 'CLOSED ACCOUNT' && account_status != 'STATE REVENUE' 
+LIMIT 10\G
+ACTIVE CONSUMER
+BAD DEBT
+TERMINATE SUPPLY
+
+\Zoom
+Email: salim@dotlines.com.bd
+Nopass123
+ZMTXT50OFF2M
+
+pro
+CREATE USER 'sudipto'@'%' IDENTIFIED BY '$uD!pTo@2231';
+GRANT SELECT ON bkash_ngo.* TO 'sudipto'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES
+GRANT REPLICATION SLAVE ON *.* TO 'support'@'%' IDENTIFIED BY 'Support@4431';
+
+CREATE USER 'support'@'%' IDENTIFIED BY 'StrongPass@123';
+GRANT REPLICATION CLIENT, SUPER ON *.* TO 'support'@'%';
+FLUSH PRIVILEGES;
+
+Staging
+CREATE USER 'sudipto'@'%' IDENTIFIED BY 'S@k@!B$1224';
+GRANT ALL PRIVILEGES ON *.* TO 'sudipto'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE USER 'report'@'103.239.252.206' IDENTIFIED BY 'Nopass@1234';
+GRANT ALL PRIVILEGES ON *.* TO 'report'@'103.239.252.206' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+
+Support@4431
+shop_product_variants
+CREATE TABLE shop_products_bk AS SELECT * FROM shop_products;
+CREATE TABLE shop_product_variants_bck AS SELECT * FROM shop_product_variants;
+CREATE TABLE cbs_product_bck AS SELECT * FROM cbs_product;
+CREATE TABLE re_agent_shops_bck AS SELECT * FROM re_agent_shops;
+
+/home/database_backup/script/fulldb.sh
+@dIl@8323
+
+
+mysql> create user 'repl_test'@'45.125.222.217' IDENTIFIED by 'Support@4431';
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'repl_test'@'45.125.222.217' IDENTIFIED BY 'Support@4431';
+mysql> flush privileges;
+mysql> select host, user from mysql.user;
+
+mysql -h 45.125.222.252 -u repl_test -p
+G7!v9rX@q2#Zt4Lp8&uB0wY9)0
+
+
+mysql> CHANGE MASTER TO MASTER_HOST='192.168.241.99',MASTER_USER='repl', MASTER_PASSWORD='Support@4431', MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS= 1127;
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'app_101_171'@'45.249.101.50' IDENTIFIED BY '7X{(-&8w_E4%';
+
+
+mysqldump --single-transaction --routines -h localhost -u root -p ecmasterdb --ignore-table=ecmasterdb.status_change_log --ignore-table=ecmasterdb.core_parcel_log --ignore-table=ecmasterdb.core_parcel_log_2024_09_01 --ignore-table=ecmasterdb.parcel_request_archive --ignore-table=ecmasterdb.status_change_log_2024_09_01 --ignore-table=ecmasterdb.core_sms_response --ignore-table=ecmasterdb.daily_pick_log --ignore-table=ecmasterdb.url_shortners --ignore-table=ecmasterdb.ipay_disbursement_logs_bk_2024_09_01 --ignore-table=ecmasterdb.daily_pick_log_2024_09_01 --ignore-table=ecmasterdb.admin_operation_log --ignore-table=ecmasterdb.block_user_data --ignore-table=ecmasterdb.core_sms_response_2024_09_01 --ignore-table=ecmasterdb.url_shortners_2024_09_01 | gzip > /home/ecmasterdb_1april26.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p cltp_web | gzip > /home/cltp_web_01april26.sql.gz
+
+mysqldump --single-transaction --routines -h localhost -u root -p cltp_prod | gzip > /home/cltp_prod_01april26.sql.gz
+
+241.131 Mysql_Pass : P@ssw0rd$1243
+gunzip < /home/ecmasterdb_1april26.sql.gz | mysql -u root -p ecouriermasterdbnew
+
+
+1	status_change_log
+2	core_parcel_log
+3	core_parcel_log_2024_09_01
+4	parcel_request_archive
+5	status_change_log_2024_09_01
+6	core_sms_response
+7	daily_pick_log
+8	url_shortners
+9	ipay_disbursement_logs_bk_2024_09_01
+10	daily_pick_log_2024_09_01
+11	admin_operation_log
+12	block_user_data
+13	core_sms_response_2024_09_01
+14	url_shortners_2024_09_01
+
+
+#!/bin/bash
+
+# Database credentials
+user="root"
+password="F}Fq8Ug35E#8Lx"
+host="localhost"
+db_name="fosterpaymentgateway_testtxn"
+db_name1="auth_api_gw"
+# Other options
+backup_path="/home/database_backup/mysql"
+date=$(date +"%d-%b-%Y")
+hour=$(date +"%h")
+
+# Set default file permissions
+umask 177
+
+# Dump database into SQL file
+mysqldump --routines --single-transaction --user=$user --password=$password --host=$host $db_name | gzip > $backup_path/$db_name-$date_$hour.sql.gz
+mysqldump --routines --single-transaction --user=$user --password=$password --host=$host $db_name1 | gzip > $backup_path/$db_name1-$date_$hour.sql.gz
+# Delete files older than 30 days
+find $backup_path/*.sql.gz -mtime +10 -exec rm {} \;
+find /home/database_backup/mysql/ -name $db_name-$date.sql.gz -exec cp "{}" /home/db_nas_bk/  \;
+find /home/database_backup/mysql/ -name $db_name1-$date.sql.gz -exec cp "{}" /home/db_nas_bk/  \;
