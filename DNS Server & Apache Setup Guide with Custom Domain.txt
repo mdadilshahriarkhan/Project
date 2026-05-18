@@ -1,101 +1,248 @@
-Server IP: 192.168.241.38
-DNS server Default port 53
+Complete DNS + Apache Configuration Guide (CentOS 7 / RHEL 7)
 
-Installation (CentOS or RedHAT)
-Apache Package install 
-# yum install httpd 
-# systemctl start/stop/status httpd  (httpd is the process or service name)
+This guide explains how to install and configure:
 
-Enable the Service in Firewall
+1. Apache Web Server (httpd)
+2. DNS Server using BIND (named)
+3. Forward Zone
+4. Reverse Zone
+5. DNS Records (A, PTR, CNAME)
+6. Firewall Configuration
+7. Testing and Troubleshooting
+
+Server Information
+Service			Value
+Server IP		192.168.241.38
+Domain Name		adilsk.com
+DNS Port		53
+HTTP Port		80
+OS				entOS 7 / RHEL 7
+
+
+Apache Web Server Configuration ======================================================================
+Install Apache
+# yum install httpd -y
+# systemctl start httpd
+# systemctl status httpd
+# systemctl enable httpd
+
+
+Step 3: Configure Firewall for Apache
+Allow HTTP service:
 # firewall-cmd --add-service=http --permanent
 # firewall-cmd --reload
 
-Webserver config file under 
- • /var/www/html/index.html
- • /etc/httpd/conf/httpd.conf
- 
-================================DNS configure===================================
-Package we need to install for the DNS is BIND (Berkeley Internet Name Domain)
+
+Step 5: Test Apache
+Open browser: http://192.168.241.38
+
+File/Directory					Purpose
+/etc/httpd/conf/httpd.conf		Main Apache config
+/var/www/html/					Website files
+/var/log/httpd/					Apache logs
+
+
+DNS Server Configuration (BIND) ================================================================
+DNS converts:
+
+Record Type				Purpose
+A Record				Hostname → IP
+PTR Record				IP → Hostname
+CNAME					Hostname → Hostname
+NS						Name Server
+SOA						Start of Authority
+
+
+Step 1: Install BIND Packages
 # yum install bind bind-utils -y
-# systemctl start/stop/status named  (named is the process or service name)
+# systemctl start named
+# systemctl enable named
 
-Check Service and Package
-#  rpm -qa | grep bind
+Verify Installation
+rpm -qa | grep bind
 
-Enable the Service in Firewall
-# firewall-cmd --add-service=dns --permanent
-# firewall-cmd --reload
 
-DNS config file under 
-# cp /etc/named.conf /etc/named.conf_backup 
-# vi /etc/named.conf
-	options {
-        listen-on port 53 { 127.0.0.1; 192.168.241.38; };
-        listen-on-v6 port 53 { ::1; };
-        directory       "/var/named";
-        dump-file       "/var/named/data/cache_dump.db";
-        statistics-file "/var/named/data/named_stats.txt";
-        memstatistics-file "/var/named/data/named_mem_stats.txt";
-        recursing-file  "/var/named/data/named.recursing";
-        secroots-file   "/var/named/data/named.secroots";
-        allow-query     { localhost;192.168.0.0/24; };
+Configure Firewall for DNS
+firewall-cmd --add-service=dns --permanent
+firewall-cmd --reload
 
-# touch /var/named/adilsk.com.fwd 
-# touch /var/named/adilsk.com.rev
+
+DNS Important Files
+File						Purpose
+/etc/named.conf				Main DNS config
+/var/named/					Zone files directory
+/etc/named.rfc1912.zones	Zone declarations
+
+
+Backup Configuration Files
+# cp /etc/named.conf /etc/named.conf_backup
 # cp /etc/named.rfc1912.zones /etc/named.rfc1912.zones_backup
 
+
+Step 6: Configure named.conf =============================================================================
+Edit:
+# vi /etc/named.conf
+Update:
+options {
+        listen-on port 53 { 127.0.0.1; 192.168.241.38; };
+        listen-on-v6 port 53 { ::1; };
+
+        directory "/var/named";
+
+        dump-file "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+
+        allow-query { localhost; 192.168.0.0/24; };
+
+        recursion yes;
+
+        dnssec-enable yes;
+        dnssec-validation yes;
+
+        bindkeys-file "/etc/named.root.key";
+
+        managed-keys-directory "/var/named/dynamic";
+
+        pid-file "/run/named/named.pid";
+        session-keyfile "/run/named/session.key";
+};
+
+
+Forward Zone Configuration:  ========================================================================
+Forward zone converts: Domain → IP (Example: adilsk.com → 192.168.241.38)
+
+Create Forward Zone File:
+# vi /var/named/adilsk.com.zone
+Add:
+$TTL 86400
+
+@ IN SOA ns1.adilsk.com. hostmaster.adilsk.com. (
+        2026051301
+        3600
+        1800
+        604800
+        86400
+)
+
+@       IN NS      ns1.adilsk.com.
+
+ns1     IN A       192.168.241.38
+@       IN A       192.168.241.38
+www     IN A       192.168.241.38
+
+Set Permissions:
+chown root:named /var/named/adilsk.com.zone
+chmod 640 /var/named/adilsk.com.zone
+restorecon -rv /var/named
+
+
+Add Zone Declaration:
 # vi /etc/named.rfc1912.zones
-	zone "adilsk.com" IN {
+Add at below:
+zone "adilsk.com" IN {
         type master;
-        file "/var/named/adilsk.com.fwd";
+        file "adilsk.com.zone";
         allow-update { none; };
-	};
+};
 
-	zone "0.0.168.192.in-addr.arpa" IN {
+Reverse Zone Configuration: ========================================================================
+Reverse zone converts: IP → Domain (Example: 192.168.241.38 → adilsk.com)
+
+Create Reverse Zone File: 
+# vi /var/named/adilsk.com.rev
+Add:
+$TTL 86400
+
+@ IN SOA ns1.adilsk.com. hostmaster.adilsk.com. (
+        2026051301
+        3600
+        1800
+        604800
+        86400
+)
+
+@       IN NS      ns1.adilsk.com.
+
+38      IN PTR     adilsk.com.
+
+Add Reverse Zone Entry:
+# vi /etc/named.rfc1912.zones
+add:
+zone "241.168.192.in-addr.arpa" IN {
         type master;
-        file "/var/named/adilsk.com.rev";
+        file "adilsk.com.rev";
         allow-update { none; };
-	};
+};
 
-Check Config File 
+
+Validate DNS Configuration: =======================================================================
+Validate Main Config
 # named-checkconf
+No output = success
 
-Edit "adilsk.com.fwd" file 
-Open link: https://bind9.readthedocs.io/en/latest/chapter3.html#soa-rr and copy below lines
+Validate Forward Zone
+# named-checkzone adilsk.com /var/named/adilsk.com.zone
+Expected:
+zone adilsk.com/IN: loaded serial 2026051301
+OK
 
-# vi /var/named/adilsk.com.fwd
-	$TTL 2d    ; default TTL for zone
+Validate Reverse Zone
+# named-checkzone 241.168.192.in-addr.arpa /var/named/adilsk.com.rev
+Expected:
+OK
 
-	@         IN      SOA   ns1.example.com. hostmaster.example.com. (
-                                2003080800 ; serial number
-                                12h        ; refresh
-                                15m        ; update retry
-                                4d         ; expiry
-                                2h         ; minimum
-                                )
 
-	; name server RR for the domain
-           IN      NS      ns1.example.com.
+Restart DNS Service
+# systemctl restart named
+# systemctl status named
 
-	www        IN      A       192.168.241.38
+Test Forward Lookup
+nslookup adilsk.com 192.168.241.38
+Expected:
+Name: adilsk.com
+Address: 192.168.241.38
 
-Check Config File 
-# named-checkzone adilsk.com /var/named/adilsk.com.fwd
+Test WWW Record
+nslookup www.adilsk.com 192.168.241.38
+Expected:
+Name: adilsk.com
+Address: 192.168.241.38
 
-Directory where all the zone files are present where you define hostname to IP etc
+Test Reverse Lookup
+# nslookup 192.168.241.38
+Expected:
+38.241.168.192.in-addr.arpa name = adilsk.com
 
- • /var/named 
- 
-DNS Translate
 
-Hostname to 192.168.1.2 (Called A Record)
+Troubleshooting: ===================================================================
+Check named Service
+# systemctl status named -l
+View Logs
+# journalctl -xeu named
+Check Port 53
+# ss -tunlp | grep :53
+Verify Firewall
+# firewall-cmd --list-all
 
-192.168.1.2 to hostname (Called PTR Record)
+Test Using dig ==========================================================================================
+Install:
+yum install bind-utils -y
+Forward lookup:
+dig adilsk.com
+Reverse lookup:
+dig -x 192.168.241.38
 
-Hostname to hostname   (Called CNAME Record)
+Useful DNS Records: ==========================================================================================
+A Record: Hostname to IP
+<dns> server1 IN A 192.168.241.50
 
-Zones Files
+PTR Record: IP to Hostname
+<dns> 50 IN PTR server1.adilsk.com.
 
-Forward zone - resolve Domain to IP
+CNAME Record: Alias hostname
+<dns> ftp IN CNAME www.adilsk.com.
 
-Reverse zone - resolve IP to Domain
+MX Record
+Mail server
+<dns> @ IN MX 10 mail.adilsk.com.
