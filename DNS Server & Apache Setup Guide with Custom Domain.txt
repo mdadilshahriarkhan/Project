@@ -1,0 +1,101 @@
+Server IP: 192.168.241.38
+DNS server Default port 53
+
+Installation (CentOS or RedHAT)
+Apache Package install 
+# yum install httpd 
+# systemctl start/stop/status httpd  (httpd is the process or service name)
+
+Enable the Service in Firewall
+# firewall-cmd --add-service=http --permanent
+# firewall-cmd --reload
+
+Webserver config file under 
+ • /var/www/html/index.html
+ • /etc/httpd/conf/httpd.conf
+ 
+================================DNS configure===================================
+Package we need to install for the DNS is BIND (Berkeley Internet Name Domain)
+# yum install bind bind-utils -y
+# systemctl start/stop/status named  (named is the process or service name)
+
+Check Service and Package
+#  rpm -qa | grep bind
+
+Enable the Service in Firewall
+# firewall-cmd --add-service=dns --permanent
+# firewall-cmd --reload
+
+DNS config file under 
+# cp /etc/named.conf /etc/named.conf_backup 
+# vi /etc/named.conf
+	options {
+        listen-on port 53 { 127.0.0.1; 192.168.241.38; };
+        listen-on-v6 port 53 { ::1; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        recursing-file  "/var/named/data/named.recursing";
+        secroots-file   "/var/named/data/named.secroots";
+        allow-query     { localhost;192.168.0.0/24; };
+
+# touch /var/named/adilsk.com.fwd 
+# touch /var/named/adilsk.com.rev
+# cp /etc/named.rfc1912.zones /etc/named.rfc1912.zones_backup
+
+# vi /etc/named.rfc1912.zones
+	zone "adilsk.com" IN {
+        type master;
+        file "/var/named/adilsk.com.fwd";
+        allow-update { none; };
+	};
+
+	zone "0.0.168.192.in-addr.arpa" IN {
+        type master;
+        file "/var/named/adilsk.com.rev";
+        allow-update { none; };
+	};
+
+Check Config File 
+# named-checkconf
+
+Edit "adilsk.com.fwd" file 
+Open link: https://bind9.readthedocs.io/en/latest/chapter3.html#soa-rr and copy below lines
+
+# vi /var/named/adilsk.com.fwd
+	$TTL 2d    ; default TTL for zone
+
+	@         IN      SOA   ns1.example.com. hostmaster.example.com. (
+                                2003080800 ; serial number
+                                12h        ; refresh
+                                15m        ; update retry
+                                4d         ; expiry
+                                2h         ; minimum
+                                )
+
+	; name server RR for the domain
+           IN      NS      ns1.example.com.
+
+	www        IN      A       192.168.241.38
+
+Check Config File 
+# named-checkzone adilsk.com /var/named/adilsk.com.fwd
+
+Directory where all the zone files are present where you define hostname to IP etc
+
+ • /var/named 
+ 
+DNS Translate
+
+Hostname to 192.168.1.2 (Called A Record)
+
+192.168.1.2 to hostname (Called PTR Record)
+
+Hostname to hostname   (Called CNAME Record)
+
+Zones Files
+
+Forward zone - resolve Domain to IP
+
+Reverse zone - resolve IP to Domain
