@@ -1,0 +1,5 @@
+Configure Mail Server on Linux usinf Postfix, Dovecot and Roundcube
+
+Postfix: Postfix is a Mail Transfer Agent (MTA). its responsible for Delivering and Receiving Emails.
+Dovecot: Dovecot is a Mail Delivery Agent (MDA). It delivers the emails from/to the mail server.
+Roundcube: webmail interface

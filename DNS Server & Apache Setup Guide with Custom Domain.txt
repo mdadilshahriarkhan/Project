@@ -249,5 +249,145 @@ Mail server
 
 
 To access another Server:
-# vi /etc/resolv.com
+# vi /etc/resolv.conf
 	> nameserver 192.168.241.38
+	
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>. Add Another Domain in Existing DNS Server <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+New Domain: askhan.com IP: 192.168.241.99
+
+in server 192.168.241.38:
+
+Step 1 — Create Forward Zone File ===========================================
+Create zone file:
+# vi /var/named/askhan.com.zone
+Add:
+$TTL 86400
+
+@ IN SOA ns1.askhan.com. hostmaster.askhan.com. (
+        2026052101
+        3600
+        1800
+        604800
+        86400
+)
+
+@       IN NS      ns1.askhan.com.
+
+ns1     IN A       192.168.241.99
+@       IN A       192.168.241.99
+www     IN A       192.168.241.99
+
+Step 2 — Set Permissions
+chown root:named /var/named/askhan.com.zone
+chmod 640 /var/named/askhan.com.zone
+restorecon -rv /var/named
+
+Step 3 — Add Zone Entry ===============================================
+Edit:
+vi /etc/named.rfc1912.zones
+Add at bottom:
+
+zone "askhan.com" IN {
+        type master;
+        file "askhan.com.zone";
+        allow-update { none; };
+};
+
+
+Step 4 — Validate Configuration
+Check config:
+# named-checkconf
+
+Check zone:
+# named-checkzone askhan.com /var/named/askhan.com.zone
+Expected:
+zone askhan.com/IN: loaded serial 2026052101
+OK
+
+Step 5 — Restart DNS
+# systemctl restart named
+
+Check status:
+# systemctl status named -lStep 4 — Validate Configuration
+
+Check config:
+# named-checkconf
+
+Check zone:
+# named-checkzone askhan.com /var/named/askhan.com.zone
+Expected:
+zone askhan.com/IN: loaded serial 2026052101
+OK
+
+Step 5 — Restart DNS
+systemctl restart named
+
+Check status:
+systemctl status named -l
+
+Step 6 — Test DNS
+Test locally:
+# nslookup askhan.com 192.168.241.38
+
+Expected:
+Name: askhan.com
+Address: 192.168.241.99
+
+Test WWW:
+# nslookup www.askhan.com 192.168.241.38
+
+>>>>>>>>>>>>>>>>>>>>>>>>>Server 192.168.241.99 <<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+Step 7 — Configure Apache on 192.168.241.99
+On server 192.168.241.99 install Apache:
+
+yum install httpd -y
+
+Start service:
+systemctl enable httpd
+systemctl start httpd
+
+Open firewall:
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+
+Create test page:
+echo "Welcome to askhan.com" > /var/www/html/index.html
+Step 8 — Test Website
+
+Open browser:
+
+http://askhan.com
+
+Expected:
+
+Welcome to askhan.com
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Optional <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Optional — Reverse Zone for 192.168.241.99
+
+Edit reverse zone:
+
+vi /var/named/adilsk.com.rev
+
+Add:
+
+99      IN PTR     askhan.com.
+
+Validate:
+
+named-checkzone 241.168.192.in-addr.arpa /var/named/adilsk.com.rev
+
+Restart DNS:
+
+systemctl restart named
+
+Test reverse lookup:
+
+nslookup 192.168.241.99
+
+Expected:
+
+99.241.168.192.in-addr.arpa name = askhan.com
