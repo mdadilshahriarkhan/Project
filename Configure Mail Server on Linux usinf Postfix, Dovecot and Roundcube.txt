@@ -1,5 +1,270 @@
 Configure Mail Server on Linux usinf Postfix, Dovecot and Roundcube
 
-Postfix: Postfix is a Mail Transfer Agent (MTA). its responsible for Delivering and Receiving Emails.
-Dovecot: Dovecot is a Mail Delivery Agent (MDA). It delivers the emails from/to the mail server.
-Roundcube: webmail interface
+MUA- Mail User Agent:
+This is the application used to send and receiveemail messages
+Example: Gmail, Yahoo, Hotmail
+On linux: Evolution, Thunderbird and Kmail
+
+MTA- Mail Transfer Agent:
+This is software responsible for sending, receiving, and routing email messages between mail servers.
+In simple terms, an MTA acts like a postal service for email. It takes outgoing emails from users or applications and delivers them to the recipient's mail server using the SMTP (Simple Mail Transfer Protocol).
+Example on linux: Postfix, Sendmail, Exim, Qmail
+
+MDA- Mail Delivering Agent:
+This is software that receives an email from a Mail Transfer Agent (MTA) and delivers it to the recipient's mailbox.
+The MDA stores the email in the recipient's mailbox. The user later accesses the email using IMAP or POP3.
+The MDA processes the message like filtering (spam mail), sorting, forwarding, etc. 
+Common MDA Software: Dovecot, Procmail, Maildrop, Cyrus IMAP
+
+SMTP (Simple Mail Transfer Protocol) 
+this is the standard protocol used to send email messages over the Internet.
+When you click "Send" in Outlook, Thunderbird, or a web application, SMTP is the protocol that transports the email from the sender to the recipient's mail server.
+
+Think of it like this:
+SMTP = Sends email
+IMAP/POP3 = Retrieves email
+
+===========================================================================================================
+
+Easy Memory Trick: 
+WRITE MAIL  → SMTP
+MOVE MAIL   → MTA
+STORE MAIL  → MDA
+READ MAIL   → IMAP4 / POP3
+USER APP    → MUA
+--------------------------------
+MUA → SMTP → MTA → SMTP → MTA → MDA → Mailbox → IMAP4/POP3 → MUA
+--------------------------------
+User Outlook
+(MUA)
+      |
+      | SMTP (587)
+      v
+Postfix
+(MTA)
+      |
+      | SMTP (25)
+      v
+Internet
+      |
+      v
+Postfix
+(MTA)
+      |
+      v
+Dovecot LDA
+(MDA)
+      |
+      v
+Maildir
+      ^
+      |
+      | IMAP4 (143/993)
+      | POP3  (110/995)
+      |
+User Outlook
+(MUA)
+
+===========================================================================================================
+
+Configure Webmail/Dovecot Mail Server in RHEL 7 (CentOS 7): 
+==================================================
+POSTFIX for SMTP (Simple Mail Transfer Protocol): Used for Sending the Emails.
+DOVECOT for POP3 (Post Office Protocol): Used for Receiving the Emails.
+SQUIRRELMAIL for IMAP (Internet Message Access Protocol): Used for Front Web End Mail Client.
+===
+Server Configuration: RHEL 7
+IP Address: 192.168.241.38
+===
+1. Set the hostname in the machine.
+hostnamectl set-hostname mail.adilsk.com
+
+Add hostname entries in /etc/hosts file as shown below:
+vim /etc/hosts
+
+Add the following
+192.168.241.38   mail.adilsk.com   mail
+
+2. Disable or make permissive the SELINUX
+setenforce 0
+getenforce
+
+3. Install EPEL Repository:
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -ivh epel-release-latest-7.noarch.rpm
+yum install -y epel-release
+
+4. Allow the Apache default port 80 through your firewall/router:
+firewall-cmd --permanent --add-port=80/tcp
+
+Reload firewall using command:
+firewall-cmd --reload
+
+=============================================
+
+5. Install the Postfix Package.
+yum install postfix -y
+
+6. Configuring PostFix
+vi /etc/postfix/main.cf
+
+Line no 77 - Uncomment and set your mail server FQDN ##
+myhostname = mail.adilsk.com
+
+Line 85 - Uncomment and Set domain name ##
+mydomain = adilsk.com
+
+Line 101 - Uncomment ##
+myorigin = $mydomain
+
+Line 115 - Uncomment and Set ipv4 ##
+inet_interfaces = all
+
+Line 121 - Change to all ##
+inet_protocols = all
+
+Line 166 - Comment ##
+#mydestination = $myhostname, localhost.$mydomain, localhost,
+
+Line 167 - Uncomment ##
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+
+Line 266 - Uncomment and add IP range ##
+mynetworks = 192.168.241.38/24, 127.0.0.0/8
+
+Line 421 - Uncomment ##
+home_mailbox = Maildir/
+
+Save and exit the file.
+
+Start/restart Postfix service now:
+systemctl restart postfix
+systemctl enable postfix
+
+7. Test the Postfix Server:
+
+Add the user account.
+useradd adil
+passwd @dil1234
+
+useradd khan
+passwd kh@n1234
+
+Install Telnet Package
+yum install -y telnet
+
+Check telnet
+telnet localhost smtp
+
+	Type the commands:
+		ehlo localhost
+		mail from:<adil>
+		rcpt to:<khan>
+		data
+		
+	welcome to Postfix Mail Server
+
+.
+quit
+
+Check: 
+ll /home/khan/Maildir/new/
+Open the file with name using cat.
+
+=============================================
+
+8. Install Dovecot Package
+yum install -y dovecot
+
+Configure Dovecot
+vim /etc/dovecot/dovecot.conf
+Line 24 - umcomment ##
+protocols = imap pop3 lmtp
+
+Edit file /etc/dovecot/conf.d/10-mail.conf file
+vim /etc/dovecot/conf.d/10-mail.conf
+Line 24 - uncomment ##
+mail_location = maildir:~/Maildir
+
+Edit /etc/dovecot/conf.d/10-auth.conf
+vim /etc/dovecot/conf.d/10-auth.conf
+
+And make the changes as shown below:
+line 10 - uncomment##
+disable_plaintext_auth = yes
+
+Line 100 - Add the word: "login" ##
+auth_mechanisms = plain login
+
+Edit file /etc/dovecot/conf.d/10-master.conf,
+vim /etc/dovecot/conf.d/10-master.conf
+
+Make changes as shown below:
+Line 91, 92 - Uncomment and add "postfix"
+mode = 0600
+user = postfix
+group = postfix
+[...]
+
+Start Dovecot service:
+systemctl start dovecot
+systemctl enable dovecot
+
+Testing Dovecot
+telnet localhost pop3
+
+user khan
+pass kh@n1234
+retr 1       -- to check mail 
+.
+quit
+
+=============================================
+
+9. Install Squirrel mail Package
+yum install squirrelmail
+
+Configuring Squirrel-Mail
+cd /usr/share/squirrelmail/config/
+./conf.pl
+
+Enter 1
+Enter 1 and change the organization Name
+Press S
+Press R for previous menu
+
+Enter 2 for Server settings
+
+Press 1
+and type: rhel7.local (Name of Domain)
+Press 3
+Press 2 for switching from Send Mail to SMTP
+
+Type S and Press Q for quit
+
+10. Create a squirrelmail vhost in apache config file:
+vim /etc/httpd/conf/httpd.conf
+
+Enter the following:
+
+Alias /webmail /usr/share/squirrelmail
+<Directory /usr/share/squirrelmail>
+Options Indexes FollowSymLinks
+RewriteEngine On
+AllowOverride All
+DirectoryIndex index.php
+Order allow,deny
+Allow from all
+</Directory>
+
+systemctl restart httpd
+systemctl enable httpd
+
+Enter the following command:
+
+# setsebool httpd_can_network_connect=1
+
+Open Web Browser and type in address bar the following. And Use User Credentials to Login.
+http://192.168.241.38/webmail/src/login.php
+
+Dovecot Server is working.

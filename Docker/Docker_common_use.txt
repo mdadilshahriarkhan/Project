@@ -1,0 +1,78 @@
+Q. What is Docker?
+ANS: Docker is a Container management tool 
+
+Q. Main Components of Docker?
+ANS: DockerFile, Docker Image, Docker Container and Docker Registry
+
+Q. Property of Docker 
+ANS: 1.Portable	2.Light weight	3. 
+
+Q. Compose file
+ANS: .yaml file (Markup Language)
+
+Q. Docker Compose
+ANS: Docker Compose is a tool for defining and running multi-container application.
+
+# docker compose -f mysql.yaml up -d 
+# docker compose -f mysql.yaml down 
+
+
+================================================================
+# Docker image is a Executable file 
+
+-- Pull an image from DockerHub
+# docker pull <image_name>
+
+-- to see the list of images in local machine 
+# docker images
+
+-- to biuld a Container using image (ubuntu is a image)
+# docker run -it ubuntu
+
+-- Existing all Container in local machone 
+# docker ps -a 
+
+-- 
+# docker start <container_name>
+# docker stop <container_name>
+
+-- remove a container 
+# docker rm <container_name>
+
+-- remove a Image 
+# docker rmi <image_name>
+
+-- Port binding 
+# docker run -p hostPort:containerPort <image_name>
+# docker run -p 8080:3306 <image_name>
+
+TROUBLESHOOT :
+-- Fetch logs of a container
+# docker logs <container_name> (or <container_id)
+-- Open shell inside running container
+# docker exec -it <container_name> /bin/bash
+# docker exec -it <container_name> sh
+
+-- Docker File create Example (mysql is a image) -------------------
+# docker network ls
+# docker network create mysql-network
+
+# docker run -d --name mysql8-demo -e MYSQL_ROOT_PASSWORD=Support@4431 -e MYSQL_DATABASE=livedemo -e MYSQL_ROOT_HOST=% -v "C:\Users\Adil Shahriar\Project\mysql-custom\my.cnf:/etc/mysql/conf.d/my.cnf" -v mysql_data:/var/lib/mysql -p 3306:3306 mysql:8.0
+# docker run -d \
+   --name mysql8-demo \
+   -e MYSQL_ROOT_PASSWORD=Support@4431 \
+   -e MYSQL_DATABASE=livedemo \
+   -v mysql_data:/var/lib/mysql \
+   -v "C:\Users\Adil Shahriar\Project\mysql-custom\my.cnf:/etc/mysql/conf.d/my.cnf" \
+   -p 3306:3306 \
+   mysql:8
+
+
+-- inside the container, run:
+# docker exec -it mysql bash
+
+
+-- Publish an image to DockerHub
+# docker push <username>/<image_name>
+
+================================================================
